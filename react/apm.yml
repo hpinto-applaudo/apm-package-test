@@ -1,6 +1,8 @@
 name: react
+description: A React agent that provides best practices and design guidance for frontend development.
 version: 1.0.0
-
 dependencies:
   apm:
-    - anthropics/skills/skills/frontend-design#v1.0.0
+  - anthropics/skills/skills/frontend-design#5754626
+  - vercel-labs/agent-skills/skills/react-best-practices#f8a72b9
+ 
