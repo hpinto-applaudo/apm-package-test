@@ -1,0 +1,6 @@
+name: react
+version: 1.0.0
+
+dependencies:
+  apm:
+    - anthropics/skills/skills/frontend-design#v1.0.0

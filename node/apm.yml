@@ -1,0 +1,6 @@
+name: node
+version: 1.0.0
+
+dependencies:
+  apm:
+    - anthropics/skills/skills/security-review#v2.1.0
