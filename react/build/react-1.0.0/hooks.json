@@ -9,7 +9,7 @@
             "type": "command"
           }
         ],
-        "matcher": "Read|Grep|Glob"
+        "matcher": "Read|Grep|Glob|Bash|Write|Edit|MultiEdit"
       }
     ]
   }
