@@ -1,9 +1,9 @@
-const fs = require('fs');
+import { readFileSync } from 'node:fs';
 
 let input = '';
 
 try {
-  input = fs.readFileSync(0, 'utf8');
+  input = readFileSync(0, 'utf8');
 } catch {
   process.exit(0);
 }
@@ -16,17 +16,64 @@ try {
   process.exit(0);
 }
 
-// Extract file paths to check based on tool type
+// Extract file paths to check based on tool type.
+// VS Code passes tool inputs in camelCase (e.g. filePath), while Claude Code
+// uses snake_case (e.g. file_path). Tool input shapes also vary by tool: some
+// expose a single path, others a `files` array (of strings or objects). To stay
+// compatible across agents and tools, recursively collect any string that looks
+// like a file path from the tool input.
 const toolInput = payload.tool_input || {};
+
+const pathKeys = new Set([
+  'filePath',
+  'file_path',
+  'path',
+  'uri',
+  'fsPath',
+  'includePattern',
+  'pattern',
+  'query',
+  'command',
+]);
+
 const pathsToCheck = [];
 
-if (toolInput.file_path) {
-  pathsToCheck.push(toolInput.file_path);
+const collectPaths = (value, keyHint) => {
+  if (value == null) return;
+
+  if (typeof value === 'string') {
+    // Only consider strings that look like paths (contain a separator or a
+    // file extension / dotfile), and only when surfaced via a path-like key.
+    if (
+      keyHint &&
+      (value.includes('/') ||
+        value.includes('\\') ||
+        /\.[\w.]+$/.test(value) ||
+        value.startsWith('.'))
+    ) {
+      pathsToCheck.push(value);
+    }
+    return;
+  }
+
+  if (Array.isArray(value)) {
+    value.forEach((item) => collectPaths(item, keyHint));
+    return;
+  }
+
+  if (typeof value === 'object') {
+    for (const [k, v] of Object.entries(value)) {
+      collectPaths(v, pathKeys.has(k) ? k : undefined);
+    }
+  }
+};
+
+// `files` arrays may contain plain path strings; treat their items as paths.
+if (Array.isArray(toolInput.files)) {
+  toolInput.files.forEach((item) => collectPaths(item, 'filePath'));
 }
 
-if (toolInput.path) {
-  pathsToCheck.push(toolInput.path);
-}
+collectPaths(toolInput);
 
 if (pathsToCheck.length === 0) {
   process.exit(0);
@@ -106,6 +153,14 @@ if (isBlocked) {
       },
     }),
   );
+
+  // Exit code 2 is the most restrictive block: VS Code stops the tool call and
+  // surfaces stderr to the model. This guarantees the block even if the JSON
+  // output is not honored.
+  process.stderr.write(
+    `[block-env-access] Blocked access to sensitive file: ${blockedPath}. ${reason}\n`,
+  );
+  process.exit(2);
 }
 
 process.exit(0);
