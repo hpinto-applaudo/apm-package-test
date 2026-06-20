@@ -4,10 +4,7 @@
       {
         "hooks": [
           {
-            "args": [
-              "${PLUGIN_ROOT}/scripts/block-env-access.js"
-            ],
-            "command": "node",
+            "command": "node ${PLUGIN_ROOT}/scripts/block-env-access.js",
             "timeout": 5,
             "type": "command"
           }
