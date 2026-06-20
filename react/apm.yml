@@ -5,7 +5,5 @@ dependencies:
   apm:
   - anthropics/skills/skills/frontend-design#5754626
   - vercel-labs/agent-skills/skills/react-best-practices#f8a72b9
-includes:
-  - auto
-  - scripts
+includes: auto
 
