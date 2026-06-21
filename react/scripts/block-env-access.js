@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs';
+import path from 'node:path';
 
 let input = '';
 
@@ -31,9 +32,6 @@ const pathKeys = new Set([
   'uri',
   'fsPath',
   'includePattern',
-  'pattern',
-  'query',
-  'command',
 ]);
 
 const pathsToCheck = [];
@@ -51,7 +49,7 @@ const collectPaths = (value, keyHint) => {
         /\.[\w.]+$/.test(value) ||
         value.startsWith('.'))
     ) {
-      pathsToCheck.push(value);
+      pathsToCheck.push(path.normalize(value));
     }
     return;
   }
