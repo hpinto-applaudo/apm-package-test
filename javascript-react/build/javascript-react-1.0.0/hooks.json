@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "node ${PLUGIN_ROOT}/scripts/block-env-access.js",
+            "timeout": 5,
+            "type": "command"
+          }
+        ],
+        "matcher": "Read|Grep|Glob|Bash|Write|Edit|MultiEdit"
+      }
+    ]
+  }
+}
