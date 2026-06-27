@@ -52,7 +52,13 @@ Name every existing piece that will be reused. Never duplicate an existing imple
 
 ### 3. Plan
 
-Produce the complete file tree — every path, its purpose, and every reused piece named explicitly. Separate contract files (types, stubs) from implementation files visually. Wait for developer confirmation before writing anything.
+Produce the complete file tree — every path, its purpose, and every reused piece named explicitly. Separate contract files (types, stubs) from implementation files visually.
+
+**Pause — approval required.** Present the plan to the developer and ask:
+
+> Does this look right? Reply with any corrections, or say **confirmed** to proceed.
+
+Do not write any files until confirmed.
 
 ### 4. Contracts
 
@@ -73,6 +79,10 @@ Hand off to `test-writer` with `mode: tdd`, providing the contract files and acc
 
 **Gate:** test-writer must confirm all new tests fail against the stubs. If any test passes a stub, send it back to test-writer — that test is not encoding real behavior.
 
+**Pause — approval required.** Present the RED confirmation output to the developer and ask:
+
+> All tests are failing as expected. Does this look right? Reply with any corrections, or say **confirmed** to proceed to implementation.
+
 ### 6. Implementation
 
 Hand off to `react-developer`, providing:
@@ -82,6 +92,10 @@ Hand off to `react-developer`, providing:
 - The acceptance criteria from the feature spec
 
 **Gate:** react-developer must return GREEN confirmation (full test suite passing). Do not proceed until it does.
+
+**Pause — approval required.** Present the GREEN confirmation output to the developer and ask:
+
+> All tests are passing. Does this look right? Reply with any corrections, or say **confirmed** to proceed to coverage verification and review.
 
 ### 7. Verify coverage
 
@@ -98,6 +112,16 @@ Hand off to `code-reviewer`. Do not proceed while any Blocker is open.
 ### 10. Accessibility
 
 Hand off to `a11y-auditor`. Address every Critical finding before declaring the feature complete.
+
+**Pause — final approval.** Once all Blockers and Critical findings are resolved, present a summary to the developer and ask:
+
+> Does this look right? Reply with any corrections, or say **confirmed** to mark this feature complete.
+
+Suggested next steps to offer the developer:
+
+- "Deploy or integrate the feature into the broader app router/state layer."
+- "Invoke `feature-planner` to begin the next feature."
+- "Open a PR — the pipeline has passed all quality gates."
 
 ## What you will not do
 

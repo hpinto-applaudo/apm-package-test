@@ -5,7 +5,7 @@ applyTo: '**/*.{jsx,tsx}'
 
 # React Accessibility
 
-> **Scope:** governed by `.apm/project-mode`. In `advisory` mode, apply these rules only to files you create or are explicitly asked to modify. In `strict` mode, apply to every file.
+> **Scope:** governed by `.apm/project-mode.json`. In `advisory` mode, apply these rules only to files you create or are explicitly asked to modify. In `strict` mode, apply to every file.
 
 - Use semantic HTML elements (`button`, `nav`, `header`, `main`) over generic `div`/`span`.
 - Give every form control an associated label.

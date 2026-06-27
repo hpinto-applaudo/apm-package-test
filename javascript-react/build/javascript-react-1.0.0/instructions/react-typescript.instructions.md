@@ -5,7 +5,7 @@ applyTo: '**/*.{ts,tsx}'
 
 # React TypeScript
 
-> **Scope:** governed by `.apm/project-mode`. In `advisory` mode, apply these rules only to files you create or are explicitly asked to modify. In `strict` mode, apply to every file.
+> **Scope:** governed by `.apm/project-mode.json`. In `advisory` mode, apply these rules only to files you create or are explicitly asked to modify. In `strict` mode, apply to every file.
 
 - Type all component props, hook returns, and exported function signatures.
 - Never use `any`; use `unknown` and narrow the type before use.

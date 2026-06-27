@@ -4,7 +4,7 @@ applyTo: 'src/**'
 
 # Folder Structure
 
-> **Scope:** governed by `.apm/project-mode`.
+> **Scope:** governed by `.apm/project-mode.json`.
 >
 > - **`strict`** — enforce this structure across the entire `src/` tree.
 > - **`advisory`** — this instruction is **opt-in**. Only apply it if the project already uses feature-based architecture (i.e. a `src/features/` directory exists) or the developer explicitly asks to follow this structure. If the project has a different folder layout, do not flag it and do not attempt to reshape it.

@@ -78,6 +78,13 @@ After writing, summarize:
 - Each test file written with its full path
 - Each test and the path it covers (acceptance criterion / user flow / edge case)
 - **TDD mode:** explicit confirmation that all new tests fail against stubs
+
+## Next step
+
+After the report, suggest the next agent based on mode:
+
+- **TDD mode:** "Tests are written and failing as expected. The next step is **`react-developer`** to implement the bodies. Say **confirmed** to continue, or let me know if you'd like to make changes first."
+- **Verify mode:** "Coverage gaps have been filled. The next step is **`code-reviewer`** to audit the implementation. Say **confirmed** to continue, or let me know if you'd like to make changes first."
 - **Verify mode:** coverage contribution toward any configured threshold
 
 ## What you will not do

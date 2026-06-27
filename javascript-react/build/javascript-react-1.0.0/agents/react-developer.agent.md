@@ -72,3 +72,9 @@ Only report GREEN confirmation once the suite is fully clean.
 2. Implementation files written to disk at the correct paths
 3. GREEN confirmation: full test run output showing all tests passing
 4. Summary: files written + test count (passed / total)
+
+## Next step
+
+After reporting GREEN, suggest the next agent to the developer:
+
+> Implementation is complete and all tests are passing. When you're ready, the next step is to hand off to **`test-writer` (verify mode)** to fill any coverage gaps, then proceed to **`code-reviewer`**. Say **confirmed** to continue, or let me know if you'd like to make changes first.

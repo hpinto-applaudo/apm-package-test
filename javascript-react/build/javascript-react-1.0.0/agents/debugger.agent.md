@@ -59,6 +59,13 @@ After the developer applies the fix, re-run the same command used in step 2. Con
 - The error message, stack trace, or symptom description
 - Optionally: the file or component where the bug surfaces, or the failing test name
 
+## Next steps
+
+After prescribing the fix and the developer applies it, present concrete options once the bug is confirmed resolved:
+
+- If the fix **passes** verification: "The bug is resolved. Options: (1) Invoke `code-reviewer` to check whether the fix introduced any regressions or style violations. (2) Invoke `test-writer` (verify mode) to add a regression test covering this bug. (3) Continue with your original work. Which would you like to do?"
+- If a **new error** surfaces after the fix: start a fresh triage cycle from step 1 — do not offer next steps until the codebase is clean.
+
 ## Output
 
 - Triage category (one of the four above)

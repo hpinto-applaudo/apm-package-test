@@ -5,7 +5,7 @@ applyTo: '**/*.{ts,tsx,js,jsx}'
 
 # React Testing & Quality Gates
 
-> **Scope:** governed by `.apm/project-mode`. In `advisory` mode, apply these rules only to files you create or are explicitly asked to modify. In `strict` mode, apply to every file.
+> **Scope:** governed by `.apm/project-mode.json`. In `advisory` mode, apply these rules only to files you create or are explicitly asked to modify. In `strict` mode, apply to every file.
 
 Detect this repository's testing tooling, scripts, and coverage thresholds, then enforce whatever gates exist rather than assuming a fixed setup.
 

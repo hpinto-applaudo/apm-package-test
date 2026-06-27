@@ -7,9 +7,9 @@ applyTo: '**'
 
 **This rule runs before any other instruction, agent action, or task execution.**
 
-## Step 1 — Read `.apm/project-mode`
+## Step 1 — Read `.apm/project-mode.json`
 
-Check whether the file `.apm/project-mode` exists in the repository root.
+Check whether the file `.apm/project-mode.json` exists in the repository root.
 
 ---
 
@@ -35,9 +35,9 @@ Ask the developer exactly this, and nothing else:
 >
 > ---
 >
-> Type `strict` or `advisory` to continue. Your answer will be saved to `.apm/project-mode` and committed with the repository so the whole team shares the same setting.
+> Type `strict` or `advisory` to continue. Your answer will be saved to `.apm/project-mode.json` and committed with the repository so the whole team shares the same setting.
 
-When the developer answers, write their answer — exactly `strict` or `advisory` — to `.apm/project-mode`. Then confirm:
+When the developer answers, write `{ "mode": "strict" }` or `{ "mode": "advisory" }` as JSON to `.apm/project-mode.json`. Then confirm:
 
 > `[APM] Mode set to: <mode>. Proceeding.`
 
@@ -47,7 +47,7 @@ Only then continue with the original request.
 
 ## If the file exists — proceed
 
-Read its value. Declare the active mode at the top of your response: `[Mode: strict]` or `[Mode: advisory]`. Never modify the file.
+Parse its JSON and read the `mode` field. Declare the active mode at the top of your response: `[Mode: strict]` or `[Mode: advisory]`. Never modify the file.
 
 ### strict
 
