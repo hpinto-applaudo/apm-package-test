@@ -41,27 +41,34 @@ Apply what you detect:
 ## Step 2 - Build a `getView` render factory
 
 Every test file defines one `getView` factory that owns rendering, props, the
-`user-event` instance, and reusable element/action helpers. Tests call it from
-their own body - never from a hook.
+`user-event` instance, and reusable element/action helpers. Declare it as an
+arrow function and as the **first statement inside the top-level `describe`** so
+nested `describe` scenarios share it. Tests call it from their own body - never
+from a hook. Keep `defaultProps` module-level as a `let` so `beforeEach` can
+re-init it.
 
 ```ts
-const defaultProps: ComponentProps = {
+let defaultProps: ComponentProps = {
   /* a complete, valid baseline */
 };
 
-function getView(overrideProps: Partial<ComponentProps> = {}) {
-  const props = { ...defaultProps, ...overrideProps };
-  const user = userEvent.setup();
-  const utils = render(<Component {...props} />);
+describe('Component', () => {
+  const getView = (overrideProps: Partial<ComponentProps> = {}) => {
+    const props = { ...defaultProps, ...overrideProps };
+    const user = userEvent.setup();
+    const utils = render(<Component {...props} />);
 
-  // Element accessors - role-first, mirroring RTL query semantics.
-  const getSubmitButton = () => screen.getByRole('button', { name: /submit/i });
+    // Element accessors - role-first, mirroring RTL query semantics.
+    const getSubmitButton = () => screen.getByRole('button', { name: /submit/i });
 
-  // Action helpers - wrap user-event and return its promise so tests await them.
-  const clickSubmitButton = () => user.click(getSubmitButton());
+    // Action helpers - wrap user-event and return its promise so tests await them.
+    const clickSubmitButton = () => user.click(getSubmitButton());
 
-  return { ...utils, user, props, getSubmitButton, clickSubmitButton };
-}
+    return { ...utils, user, props, getSubmitButton, clickSubmitButton };
+  };
+
+  // beforeEach/afterEach and tests follow
+});
 ```
 
 Rules:
@@ -115,11 +122,13 @@ State isolation comes first. RTL auto-cleanup runs after each test - never call
 
 Two hard rules:
 
-1. **`getView` is called inside the test body** (in `// Arrange`), so each test
-   controls its props and the render stays visible. A scenario `beforeEach` may
-   arrange shared props/state but must not render.
+1. **`getView` is defined as the first statement inside the top `describe` and
+   called inside the test body** (in `// Arrange`), so each test controls its
+   props and the render stays visible. A scenario `beforeEach` may arrange shared
+   props/state but must not render.
 2. **Never share mutable state through `beforeAll`** - mocks and props always
-   reset in `beforeEach`.
+   reset in `beforeEach`; declare `defaultProps` as a `let` so `beforeEach` can
+   reassign a fresh object.
 
 ## Step 5 - Structure every test with AAA
 

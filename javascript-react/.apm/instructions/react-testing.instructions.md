@@ -19,6 +19,7 @@ Detect this repository's testing tooling, scripts, and coverage thresholds, then
 ## Quality gates (must pass before completion)
 
 - Detect and run the repo's lint, type-check, format, test, and build scripts (check `package.json`, config files, CI).
+- Run lint and format on every file you generate or modify, but only when the script exists in `package.json` (e.g. `lint`, `lint:fix`, `format`). In `advisory` mode scope this to changed files; in `strict` mode follow the repo's configured scope. Never install tooling that is absent.
 - If a code-coverage threshold is configured, meet or exceed it for changed code; never lower it.
 - Never disable, skip, or weaken lint rules, type checks, or tests to force a pass.
 - Fix the underlying issue rather than suppressing the warning.

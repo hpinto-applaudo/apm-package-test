@@ -47,6 +47,8 @@ After implementing all units, run the full test suite via Bash.
 
 **Gate:** every test written against these contracts must pass. Zero failures, zero skips.
 
+Once green, run the repo's lint and format scripts on the changed files **if they exist** in `package.json` (e.g. `lint`, `lint:fix`, `format`). Never install tooling that is absent; never disable rules to force a pass. Fix the underlying issue, not the rule.
+
 If a test fails:
 
 1. Read the failure message and the test source

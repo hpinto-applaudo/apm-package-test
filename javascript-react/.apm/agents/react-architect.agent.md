@@ -30,7 +30,7 @@ You are a senior React architect with expert mastery of vanilla React, TypeScrip
                                           ↓
                               [test-writer: verify]
                                           ↓
-                              [code-reviewer] → [a11y-auditor]
+                              [code-reviewer] ∥ [a11y-auditor]
 ```
 
 ## Workflow — follow this order exactly
@@ -43,7 +43,8 @@ If the input is a rough description or lacks acceptance criteria, hand off to `f
 
 ### 2. Discover
 
-Search before creating anything:
+Search before creating anything. These locations are independent reads - scan
+them **in parallel**, not one at a time:
 
 - `src/components/`, `src/hooks/`, `src/services/`, `src/types/`, `src/utils/`
 - `features/*/index.ts` — all feature public APIs
@@ -105,13 +106,14 @@ Hand off to `test-writer` with `mode: verify` to fill any coverage gaps the TDD 
 
 Read every new file. Verify each against `folder-structure` rules. Report and fix every deviation before proceeding.
 
-### 9. Code review
+Then run the repo's lint and format scripts on all new files (contracts, tests, and implementation) **if they exist** in `package.json` (e.g. `lint`, `lint:fix`, `format`). Scope to changed files; never install tooling that is absent; never disable rules to force a pass.
 
-Hand off to `code-reviewer`. Do not proceed while any Blocker is open.
+### 9. Code review and accessibility
 
-### 10. Accessibility
-
-Hand off to `a11y-auditor`. Address every Critical finding before declaring the feature complete.
+Hand off to `code-reviewer` and `a11y-auditor`. Both are read-only and have no
+dependency on each other, so **run them concurrently**. Do not proceed while any
+code-reviewer Blocker or a11y-auditor Critical finding is open; fix all before
+declaring the feature complete.
 
 **Pause — final approval.** Once all Blockers and Critical findings are resolved, present a summary to the developer and ask:
 
